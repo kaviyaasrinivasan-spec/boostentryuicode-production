@@ -1,0 +1,45 @@
+# ---------- Backend Only Docker Image ----------
+# For Flask API + FastAPI + Telegram Listener (no frontend)
+
+FROM python:3.13-slim
+
+WORKDIR /app
+
+# ---------- System Dependencies ----------
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      build-essential libpq-dev curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# ---------- Python deps ----------
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# ---------- Copy backend source files ----------
+COPY app.py .
+COPY watch_and_send.py .
+COPY telegram_user_client.py .
+COPY telegram_sender.py .
+COPY whatsapp_sender.py .
+COPY config/ ./config/
+COPY routes/ ./routes/
+
+# Copy Telegram session files (authentication)
+COPY vehicle_hire_session.session .
+COPY vehicle_hire_sender.session .
+
+# ---------- Create PDF storage directory ----------
+RUN mkdir -p /app/pdf_storage
+
+# ---------- Environment variables ----------
+ENV PYTHONUNBUFFERED=1
+ENV PDF_STORAGE_PATH=/app/pdf_storage
+
+EXPOSE 30010 30011
+
+# ---------- Entrypoint ----------
+COPY docker-backend-entrypoint.sh /docker-backend-entrypoint.sh
+RUN chmod +x /docker-backend-entrypoint.sh && \
+    sed -i 's/\r$//' /docker-backend-entrypoint.sh
+
+CMD ["/docker-backend-entrypoint.sh"]

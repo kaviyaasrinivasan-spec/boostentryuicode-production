@@ -1,0 +1,385 @@
+{
+	"info": {
+		"_postman_id": "d1894d93-d972-44da-bbe8-bd3d69954b59",
+		"name": "Consumer API Documentation AE Copy",
+		"description": "Use Consumer APIs provided by AskEva to interact with WhatsApp API through your platform.\n\nIn order to use Consumer APIs, go to 'Dashboard' -> navigate to 'Settings' -> 'API Settings' -> 'Create New API Key' and create a API key.\n\nYou have to attach this key in the query parameter of all your requests.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23393453",
+		"_collection_link": "https://universal-meadow-706385.postman.co/workspace/e6f883c7-1771-4373-8ea8-d33042621e3e/collection/23393453-d1894d93-d972-44da-bbe8-bd3d69954b59?action=share&source=collection_link&creator=23393453"
+	},
+	"item": [
+		{
+			"name": "Message",
+			"item": [
+				{
+					"name": "Template - Text",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \n    \"to\": \"9190424XXXXX\",\n    \"type\": \"template\",\n    \"template\": {\n        \"language\": {\n            \"policy\": \"deterministic\",\n            \"code\": \"en\"\n        },\n        \"name\": \"postman_text\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.askeva.io/v1/message/send-message?token={{token}}",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"askeva",
+								"io"
+							],
+							"path": [
+								"v1",
+								"message",
+								"send-message"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Send a text template to a user."
+					},
+					"response": []
+				},
+				{
+					"name": "Template - Text with attributes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \n    \"to\": \"9190424XXXXX\",\n    \"type\": \"template\",\n    \"template\": {\n        \"language\": {\n            \"policy\": \"deterministic\",\n            \"code\": \"en\"\n        },\n        \"name\": \"postman_textvariable\",\n        \"components\": [\n            {\n                \"type\": \"body\",\n                \"parameters\": [\n                    {\n                        \"type\": \"text\",\n                        \"text\": \"Team\"\n                    }\n                ]\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.askeva.io/v1/message/send-message?token={{token}}",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"askeva",
+								"io"
+							],
+							"path": [
+								"v1",
+								"message",
+								"send-message"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Send a text template with attributes to a user."
+					},
+					"response": []
+				},
+				{
+					"name": "Template - Image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"to\": \"917603881811\",\n    \"type\": \"template\",\n    \"template\": {\n        \"language\": {\n            \"policy\": \"deterministic\",\n            \"code\": \"en\"\n        },\n        \"name\": \"py_aiml\",\n        \"components\": [\n            {\n                \"type\": \"header\",\n                \"parameters\": [\n                    {\n                        \"type\": \"image\",\n                        \"image\": {\n                            \"link\": \"https://askeva.blr1.cdn.digitaloceanspaces.com/askevaio/chat/664c278879520f132f136ffd-2024-08-02T13:49:19.802Z-Askeva LOGO.jpg\"\n                        }\n                    }\n                ]\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.askeva.io/v1/message/send-message?token=226b3bc6338f9de4107cc93016924fb2868113776165b8d4b9a76914930e2fa2e47ff2906d87e0281121e425dccf62d88c45f93437297947e28d8e2e9f1680d7b7fc5066cd6f79b0ec80612db87ee875c8338f00ea079bc817565cc1376457dfc6afa96269787a66ba2992ec3f7943fb2c167be5674082c7c4def6f68fd6ddfa6300a5b47ded45403f31626e7d31db08df08a2cecce6061cbab18c031d10f009f514f4bbdff970a46949f8541f31ccb51a0d38c3737f20ba199b5602da65c247cd3f67b7ff0fc5d74e4a1add72852a5c",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"askeva",
+								"io"
+							],
+							"path": [
+								"v1",
+								"message",
+								"send-message"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "226b3bc6338f9de4107cc93016924fb2868113776165b8d4b9a76914930e2fa2e47ff2906d87e0281121e425dccf62d88c45f93437297947e28d8e2e9f1680d7b7fc5066cd6f79b0ec80612db87ee875c8338f00ea079bc817565cc1376457dfc6afa96269787a66ba2992ec3f7943fb2c167be5674082c7c4def6f68fd6ddfa6300a5b47ded45403f31626e7d31db08df08a2cecce6061cbab18c031d10f009f514f4bbdff970a46949f8541f31ccb51a0d38c3737f20ba199b5602da65c247cd3f67b7ff0fc5d74e4a1add72852a5c"
+								}
+							]
+						},
+						"description": "Send a template with image as header to a user."
+					},
+					"response": []
+				},
+				{
+					"name": "Template - Image with attributes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"to\": \"9190424XXXXX\",\n    \"type\": \"template\",\n    \"template\": {\n        \"language\": {\n            \"policy\": \"deterministic\",\n            \"code\": \"en\"\n        },\n        \"name\": \"postman_imagevariable\",\n        \"components\": [\n            {\n                \"type\": \"header\",\n                \"parameters\": [\n                    {\n                        \"type\": \"image\",\n                        \"image\": {\n                            \"link\": \"https://askeva.blr1.cdn.digitaloceanspaces.com/askevaio/chat/664c278879520f132f136ffd-2024-08-02T13:49:19.802Z-Askeva LOGO.jpg\"\n                        }\n                    }\n                ]\n            },\n            {\n                \"type\": \"body\",\n                \"parameters\": [\n                    {\n                        \"type\": \"text\",\n                        \"text\": \"Team\"\n                    }\n                ]\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.askeva.io/v1/message/send-message?token={{token}}",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"askeva",
+								"io"
+							],
+							"path": [
+								"v1",
+								"message",
+								"send-message"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Send a template with image as header and attributes to a user."
+					},
+					"response": []
+				},
+				{
+					"name": "Template - Video",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"to\": \"9190424XXXXX\",\n    \"type\": \"template\",\n    \"template\": {\n        \"language\": {\n            \"policy\": \"deterministic\",\n            \"code\": \"en\"\n        },\n        \"name\": \"postman_video\",\n        \"components\": [\n            {\n                \"type\": \"header\",\n                \"parameters\": [\n                    {\n                        \"type\": \"video\",\n                        \"video\": {\n                            \"link\": \"https://askeva.blr1.cdn.digitaloceanspaces.com/askevanet/filemanager/150-20240626132713-file_example_MP4_1280_10MG.mp4\"\n                        }\n                    }\n                ]\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.askeva.io/v1/message/send-message?token={{token}}",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"askeva",
+								"io"
+							],
+							"path": [
+								"v1",
+								"message",
+								"send-message"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Send a template with video as header to a user."
+					},
+					"response": []
+				},
+				{
+					"name": "Template - Video with attributes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"to\": \"9190424XXXXX\",\n    \"type\": \"template\",\n    \"template\": {\n        \"language\": {\n            \"policy\": \"deterministic\",\n            \"code\": \"en\"\n        },\n        \"name\": \"postman_videovariable\",\n        \"components\": [\n            {\n                \"type\": \"header\",\n                \"parameters\": [\n                    {\n                        \"type\": \"video\",\n                        \"video\": {\n                            \"link\": \"https://askeva.blr1.cdn.digitaloceanspaces.com/askevanet/filemanager/150-20240626132713-file_example_MP4_1280_10MG.mp4\"\n                        }\n                    }\n                ]\n            },\n            {\n                \"type\": \"body\",\n                \"parameters\": [\n                    {\n                        \"type\": \"text\",\n                        \"text\": \"Team\"\n                    }\n                ]\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.askeva.io/v1/message/send-message?token={{token}}",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"askeva",
+								"io"
+							],
+							"path": [
+								"v1",
+								"message",
+								"send-message"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Send a template with video as header and attributes to a user."
+					},
+					"response": []
+				},
+				{
+					"name": "Template - Document",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"to\": \"9190424XXXXX\",\n    \"type\": \"template\",\n    \"template\": {\n        \"language\": {\n            \"policy\": \"deterministic\",\n            \"code\": \"en\"\n        },\n        \"name\": \"postman_file\",\n        \"components\": [\n            {\n                \"type\": \"header\",\n                \"parameters\": [\n                    {\n                        \"type\": \"document\",\n                        \"document\": {\n                            \"link\": \"https://askeva.blr1.cdn.digitaloceanspaces.com/askevaio/chat/664c278879520f132f136ffd-2024-08-03T05:17:40.005Z-file-example_PDF_1MB.pdf\",\n                            \"filename\": \"PDF File\"\n                        }\n                    }\n                ]\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.askeva.io/v1/message/send-message?token={{token}}",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"askeva",
+								"io"
+							],
+							"path": [
+								"v1",
+								"message",
+								"send-message"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Send a template with document as header to a user."
+					},
+					"response": []
+				},
+				{
+					"name": "Template - Document with attributes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \n    \"to\": \"9190424XXXXX\",\n    \"type\": \"template\",\n    \"template\": {\n        \"language\": {\n            \"policy\": \"deterministic\",\n            \"code\": \"en\"\n        },\n        \"name\": \"postman_filevariable\",\n        \"components\": [\n            {\n                \"type\": \"header\",\n                \"parameters\": [\n                    {\n                        \"type\": \"document\",\n                        \"document\": {\n                            \"link\": \"https://askeva.blr1.cdn.digitaloceanspaces.com/askevaio/chat/664c278879520f132f136ffd-2024-08-03T05:17:40.005Z-file-example_PDF_1MB.pdf\",\n                            \"filename\": \"PDF File\"\n                        }\n                    }\n                ]\n            },\n            {\n                \"type\": \"body\",\n                \"parameters\": [\n                    {\n                        \"type\": \"text\",\n                        \"text\": \"Team\"\n                    }\n                ]\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://backend.askeva.io/v1/message/send-message?token={{token}}",
+							"protocol": "https",
+							"host": [
+								"backend",
+								"askeva",
+								"io"
+							],
+							"path": [
+								"v1",
+								"message",
+								"send-message"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Send a template with document as header and attributes to a user."
+					},
+					"response": []
+				}
+			],
+			"description": "APIs to send messages to customers"
+		},
+		{
+			"name": "Templates",
+			"item": [
+				{
+					"name": "Get Templates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://backend.askeva.io/v1/templates?token={{token}}",
+							"protocol": "http",
+							"host": [
+								"backend",
+								"askeva",
+								"io"
+							],
+							"path": [
+								"v1",
+								"templates"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "Get templates created from facebook\n\n**Query Parameter:**\n\n- after - Get next set of results. Value can be obtain from data.paging parameter\n    \n- before - Get previous set of results. Value can be obtain from data.paging parameter\n    \n- fields - Fields to be selected. Fields must be separated by a comma.  \n    Eg: `id,category,components,language,name,quality_score,rejected_reason,status`\n    \n- limit - Number of templates to be fetched per page. (defaults to `25`)"
+					},
+					"response": []
+				}
+			],
+			"description": "Contains APIs to interact with FB templates"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "226b3bc6338f9de4107cc93016924fb2868113776165b8d4b9a76914930e2fa2e47ff2906d87e0281121e425dccf62d8dfa717241eb0cb47e56a48abb28e418e7b8ecd7baad380ff0d6efccb576372fae15645caa83a1eeae516247171056acd08920ee4b573e1f9335d023617e859b7dcc1f6bee0cf068d2881d87935f68ff6a44407fbb18716052328b5d5fbbcd218fb6999d00085ac60f864c4d583799b88cb1b0a94a740d8e3a4e1633812873912ac389d3afad3ccee321df3741904e29ae4c0e8f4638ea7d2f90d34cc8f3efb8acefc4e4eeee996df90d24b811d48d9b444835377ef8711f8e933fd1183bf5c442481855e07b220f81328bcfa87cd0c608740a631751fc54b6a5348611d77ba84af8c372db29f42b97832f4e90cc80d38f01c0e8411b7b8c0bf154e1085e1318d3b1b677ee9389d1bf7102ecda35c706f1bf5026867b2cf6c8de116c73f261c532508251e2952c3a7a0d3e6c7743b326aa9320722264212b48aa6ad6b026c7856f1e999c3a6bf45b11de269c1f71a306ce0ab818a7f97919970e148fc4b35fe91bf76df1f448d74ee0669b49c3330e41789ec95cff7d338f60a7c08c03d2cad065dcf0cc50efa3d820d062c216464b5436136ae83508099e7b5699c83d0a902c9912dfa1c149101b6639fa9e749cd9429e3f7908805af199269d9ec6888d42815b7058804b76d44f2e80c98fc26a0283c753f6366b2f47f55f40eb3c038af607e984847df3306bd5093929f58b5a156105a1954f1d529fcd2837b647f431c752815587d029b103ebfbcfcc2790b6c6fbc744a807a6f6940b52656b0027dbc9ceaf01f858d02563c9ec88585846107c85fb1ab74cd7c84ac65b197c00e5957d949b387444f830515a19d1bd9ab816e53445ec1584d01b616a97c60b88e65406a94cc246eef2905661802922c2778fe7c4277dc44872479480f2a934db8d952e99d",
+			"type": "string"
+		}
+	]
+}

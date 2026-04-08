@@ -1,0 +1,12 @@
+{
+  "data": [
+    {
+      "doc_id": 12,
+      "error": null,
+      "final_name": "UltraTechCement_Invoice_20251203_004239_175324.txt",
+      "saved_path": "pdf/2025/12/client_1/UltraTechCement_Invoice_20251203_004239_175324.txt",
+      "source": "test.txt"
+    }
+  ],
+  "status": "success"
+}

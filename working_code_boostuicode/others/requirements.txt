@@ -1,0 +1,74 @@
+########################################
+# 🧠 BACKEND DEPENDENCIES (Python)
+########################################
+
+# Core backend framework
+flask==3.0.3
+flask-cors==4.0.0
+
+# PostgreSQL driver (modern + Python 3.13 compatible)
+psycopg[binary]==3.2.10
+psycopg-pool==3.2.3
+
+# Environment & configuration
+python-dotenv==1.0.1
+
+# HTTP utilities
+requests==2.32.3
+
+pillow
+numpy
+
+bcrypt
+
+# PDF creation for image uploads (works with pdf2image/Poppler)
+reportlab
+
+# OCR for creating searchable PDFs
+pytesseract
+
+# Telegram client for messaging
+telethon==1.36.0
+
+# Background scheduler for WhatsApp reminders
+APScheduler==3.10.4
+
+# FastAPI for watch_and_send.py (file upload processor)
+fastapi
+uvicorn
+python-multipart
+psycopg2-binary
+
+# OCR for adding text layer to image PDFs (faster extraction)
+ocrmypdf
+
+
+########################################
+# ⚛️ FRONTEND DEPENDENCIES (Node / React)
+# Run these commands inside:
+#   C:\Users\avin4\Desktop\automation_ui_code\boosterentryai-ui
+########################################
+
+# To install frontend dependencies:
+#   npm install
+# If vite or react not found, run:
+#   npm install react react-dom
+#   npm install vite @vitejs/plugin-react --save-dev
+# Then start frontend with:
+#   npm run dev
+#
+# React (UI framework)
+# react
+# react-dom
+#
+# Vite (build tool)
+# vite
+# @vitejs/plugin-react
+#
+# TailwindCSS (optional, if used)
+# tailwindcss
+# postcss
+# autoprefixer
+#
+# axios (for API requests)
+# axios

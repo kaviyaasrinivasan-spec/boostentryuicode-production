@@ -1,0 +1,135 @@
+# BoostEntry AI Docker Commands
+# ================================
+# Updated: 2025-12-17
+
+# ========================================
+# LOCAL BUILD (on Windows machine)
+# ========================================
+
+# 1. Navigate to project directory
+cd "C:\Users\avin4\Desktop\boostentryai ui code\automation_ui_code\boosterentryai-ui"
+
+# 2. Build Docker image (includes FastAPI + Flask + React UI)
+docker build -t boosterentryai -f Dockerfile .
+
+# 3. Save as tar file
+docker save boosterentryai -o boosterentryai2.tar
+
+# 4. Transfer to server (PowerShell)
+scp -P 2244 boosterentryai2.tar root@103.14.123.44:/root/
+
+
+# ========================================
+# SERVER DEPLOYMENT
+# ========================================
+
+# 1. LOAD image from tar
+docker load -i /root/boosterentryai2.tar
+
+# 2. STOP and REMOVE old container (if exists)
+docker stop boosterentryai-app 2>/dev/null
+docker rm boosterentryai-app 2>/dev/null
+
+# 3. CREATE PDF storage folder
+mkdir -p /root/boostentry_pdf
+chmod 755 /root/boostentry_pdf
+
+# 4. RUN container with all ports and PDF storage volume
+# NOTE: Volume mounts SAME PATH inside/outside Docker for easy file access
+docker run -d --name boosterentryai-app --restart unless-stopped \
+  -p 30010:30010 \
+  -p 30011:30011 \
+  -p 30012:30012 \
+  -v /root/boostentry_pdf:/root/boostentry_pdf \
+  -e PGHOST=103.14.123.44 \
+  -e PGPORT=5432 \
+  -e PGDATABASE=mydb \
+  -e PGUSER=sql_developer \
+  -e PGPASSWORD=Dev@123 \
+  -e PDF_STORAGE_PATH=/root/boostentry_pdf \
+  boosterentryai
+
+# 5. CHECK status
+docker ps | grep boosterentryai
+
+# 6. VIEW logs (live)
+docker logs -f boosterentryai-app
+
+# 7. CHECK all services are running
+docker exec boosterentryai-app cat /app/flask.log | tail -10
+docker exec boosterentryai-app cat /app/fastapi.log | tail -10
+
+
+# ========================================
+# QUICK UPDATE (without rebuild)
+# ========================================
+
+# From Windows (PowerShell):
+scp -P 2244 ".\routes\monitoring_routes.py" root@103.14.123.44:/root/
+scp -P 2244 ".\routes\fix_review_routes.py" root@103.14.123.44:/root/
+scp -P 2244 ".\watch_and_send.py" root@103.14.123.44:/root/
+
+# On server:
+docker cp /root/monitoring_routes.py boosterentryai-app:/app/routes/monitoring_routes.py
+docker cp /root/fix_review_routes.py boosterentryai-app:/app/routes/fix_review_routes.py
+docker cp /root/watch_and_send.py boosterentryai-app:/app/watch_and_send.py
+docker restart boosterentryai-app
+
+
+# ========================================
+# PORTS SUMMARY
+# ========================================
+# 30010 - Flask API (main backend + WhatsApp webhook)
+# 30011 - FastAPI (file upload processor)
+# 30012 - React UI (frontend)
+
+# URLs:
+# Frontend:  http://103.14.123.44:30012
+# Upload:    http://103.14.123.44:30012/upload
+# Monitoring: http://103.14.123.44:30012/monitoring
+
+
+# ========================================
+# PDF STORAGE
+# ========================================
+# Location (same inside/outside Docker):
+#   /root/boostentry_pdf/
+#
+# Files are saved with unique names:
+#   ClientName_20251217_020544_123456_789012.pdf
+#
+# saved_path column in database stores the filename
+# file_data column is NULL (PDFs not stored in DB)
+
+
+# ========================================
+# TROUBLESHOOTING
+# ========================================
+
+# Check if FastAPI is running:
+docker exec boosterentryai-app curl http://localhost:30011/
+
+# Check PDF folder (inside container):
+docker exec boosterentryai-app ls -la /root/boostentry_pdf/
+
+# Check PDF folder (on host):
+ls -la /root/boostentry_pdf/
+
+# View FastAPI log:
+docker exec boosterentryai-app cat /app/fastapi.log | tail -30
+
+# View Flask log:
+docker exec boosterentryai-app cat /app/flask.log | tail -30
+
+# Check database saved_path:
+psql -h 103.14.123.44 -U sql_developer -d mydb -c "SELECT doc_id, saved_path, file_size FROM doc_processing_log ORDER BY doc_id DESC LIMIT 10;"
+
+# Test PDF download:
+curl -I http://103.14.123.44:30010/api/monitoring/134/file
+
+
+# ========================================
+# RUN DOCUMENT EXTRACTOR (outside Docker)
+# ========================================
+cd /root/boostentry_pdf
+python3 watch_extract_from_disk.py
