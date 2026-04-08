@@ -1,9 +1,14 @@
-__pycache__/
-*.py[cod]
-*$py.class
-.env
-.venv
-venv/
-ENV/
-*.csv
-*.log
+# Ignore in all depths
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+**/.env
+**/.venv
+**/venv/
+**/ENV/
+**/*.csv
+**/*.log
+**/node_modules/
+**/dist/
+**/build/
+**/.DS_Store

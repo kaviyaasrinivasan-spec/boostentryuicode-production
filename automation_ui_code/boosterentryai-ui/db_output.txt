@@ -1,0 +1,12 @@
+Starting DB check...
+Connected to DB.
+
+--- CLIENTS TABLE ---
+ID: 1, Name: UltraTechCement
+ID: 2, Name: JSW Cement
+
+--- DOC FORMATS TABLE ---
+ID: 1, ClientID: 1, Name: UltraTech Invoice Format, Type: Invoice
+ID: 2, ClientID: 2, Name: JSW Invoice Format, Type: Invoice
+
+Done.
